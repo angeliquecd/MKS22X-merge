@@ -1,10 +1,9 @@
 import java.util.Random;
 public class Merge{
   public static void mergesort(int[] data){
-    data=mergehelper(data, 0,data.length,data.length);
-  }
-  public static int[] mergehelper(int[] data,int lo, int hi,int total){
-    if (hi-lo<=1) return data;
+    int hi =data.length;
+    int lo = 0;
+    if (hi<=1) return ;
     int leftlength = hi/2;
     int rightlength=leftlength;
     if (hi%2 ==1) rightlength+=1;
@@ -16,16 +15,14 @@ public class Merge{
       if (h<leftlength) leftside[h]=data[h];
       else rightside[h-leftlength]=data[h];//fills up correct arrays
     }
-  //  printarray(leftside);
-    //printarray(rightside);
-    mergehelper(rightside, 0, rightlength,total);
-    mergehelper(leftside,0, leftlength,total);
-    int[] empty = new int[total];
-  merge(rightside,leftside,empty);
-  printarray(empty);
-return empty;}
-    public static void merge (int[] rightside, int[] leftside,int[] data){
+    mergesort(rightside);
+    mergesort(leftside);//changed wrapper function because i was having trouble with return values
+    data=merge(leftside,rightside);
+  }
+    public static int[] merge (int[] rightside, int[] leftside){
     //merge part
+    int total = rightside.length + leftside.length;
+    int[] empty=new int[total];
     int i =0;
     int j=0;
     int inc =0;
@@ -33,22 +30,40 @@ return empty;}
       //  printarray(leftside);
     //    System.out.println("right side: ");
       //  printarray(rightside);
-    while(i<leftside.length && j<rightside.length){
+    while (inc<total){
+    if(i<leftside.length && j<rightside.length){
       if (leftside[i]>rightside[j]){//compares stuff
-      data[inc]=rightside[j];
+      empty[inc]=rightside[j];
       j++;}//increments within the right list
       else{
-        data[inc]=leftside[i];
+        empty[inc]=leftside[i];
         i++;}
-      inc++;
-    }
-    System.out.println("final: ");
-    printarray(data);
+      inc++;//moves forward in new array
+    //System.out.println("final: ");
+  //  printarray(data);
 //    System.out.println("left side: ");
   //  printarray(leftside);
 //    System.out.println("right side: ");
   //  printarray(rightside);
+}
+else {
+  if (i>=leftside.length){
+    while (j<rightside.length){
+      empty[inc]=rightside[j];//fills in for if values are not perfectly alternating
+      j++;}
   }
+  if (j>=rightside.length){
+    while(i<leftside.length){
+      empty[inc]=leftside[i];//same as above but for new array
+      i++;
+    }
+  }
+  inc++;
+}
+}
+printarray(empty);
+return empty;
+}
   public static void printarray(int [] data){
     for (int a: data){
       System.out.print(a+" ");
@@ -62,8 +77,8 @@ return empty;}
       nums[i]=Math.abs(rng.nextInt()%20);
     }*/
     int[] nums = {1, 5,6,3,4};
-    printarray(nums);
+  //  printarray(nums);
     mergesort(nums);
-      printarray(nums);
+     printarray(nums);
   }
 }
