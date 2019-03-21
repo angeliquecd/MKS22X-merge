@@ -4,7 +4,7 @@ public class Merge{
     mergehelper(data,data);}
     public static void mergehelper(int[] data, int[] stored){
     int hi =data.length;
-    int lo = 0;
+    int lo = 0;//kind of unnecessary
     if (hi<=1) return ;
     int leftlength = hi/2;
     int rightlength=leftlength;
@@ -52,15 +52,16 @@ else {
   if (i>=leftside.length){
     while (j<rightside.length){
       empty[inc]=rightside[j];//fills in for if values are not perfectly alternating
-      j++;}
+      j++;
+    inc++;}
   }
   if (j>=rightside.length){
     while(i<leftside.length){
       empty[inc]=leftside[i];//same as above but for other side
       i++;
+      inc++;
     }
   }
-  inc++;
 }
 }
     System.out.println("total array: ");
@@ -75,12 +76,12 @@ return empty;
   }
   public static void main (String[] args){
     Random rng = new Random();
-  /*  int [] nums = new int[6];
+    int [] nums = new int[6];
     for (int i=0;i<6;i++){
       nums[i]=Math.abs(rng.nextInt()%20);
-    }*/
-    int[] nums = {1, 5,6,3,4};
-  //  printarray(nums);
+    }
+  //  int[] nums = {1, 5,6,3,4};
+    printarray(nums);
     mergesort(nums);
      printarray(nums);
   }
