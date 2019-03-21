@@ -1,11 +1,16 @@
+//you have no idea how long i spent on this
 import java.util.Random;
 public class Merge{
   public static void mergesort(int[] data){
-    mergehelper(data,data);}
-    public static void mergehelper(int[] data, int[] stored){
+    mergehelper(data);}
+
+public static void mergehelper(int[] data){
     int hi =data.length;
     int lo = 0;//kind of unnecessary
-    if (hi<=1) return ;
+    if (hi-lo<27) {
+      data=insertionSort(data,lo,hi);
+      return;
+    }
     int leftlength = hi/2;
     int rightlength=leftlength;
     if (hi%2 ==1) rightlength+=1;
@@ -17,8 +22,8 @@ public class Merge{
       if (h<leftlength) leftside[h]=data[h];
       else rightside[h-leftlength]=data[h];//fills up correct arrays and splits in half
     }
-    mergehelper(rightside,stored);
-    mergehelper(leftside,stored);//changed wrapper function because i was having trouble with return values
+    mergehelper(rightside);
+    mergehelper(leftside);//changed wrapper function because i was having trouble with return values
     data=merge(leftside,rightside, data);
   }
     public static int[] merge (int[] rightside, int[] leftside, int[] empty){
@@ -43,10 +48,10 @@ public class Merge{
       inc++;//moves forward in new array
     //System.out.println("final: ");
   //  printarray(data);
-    System.out.println("left side: ");
-  printarray(leftside);
-    System.out.println("right side: ");
-    printarray(rightside);
+  //  System.out.println("left side: ");
+//  printarray(leftside);
+//    System.out.println("right side: ");
+//    printarray(rightside);
 }
 else {
   if (i>=leftside.length){
@@ -64,9 +69,30 @@ else {
   }
 }
 }
-    System.out.println("total array: ");
-printarray(empty);
+  //  System.out.println("total array: ");
+//printarray(empty);
 return empty;
+}
+public static int[] insertionSort(int[] ary, int lo, int hi){//copied from old lab
+//  System.out.println("sorting by insertion");
+  if (ary.length>0){
+  boolean shifting;
+  int stored1;
+  int stored;
+  for (int i=lo;i<hi;i++){
+    shifting=false;
+    stored=ary[i];
+  for (int b =0;b<i+1;b++){
+      if (stored<ary[b]){
+        shifting = true;} //finds correct place to start shifting
+      if (shifting){//starts off the shift
+        stored1=ary[b];//stores value there
+        ary[b]=stored;//gives in past stored value
+        stored=stored1;}//stores new value as stored value to pass on
+  }
+}}
+//printarray(ary);
+return ary;
 }
   public static void printarray(int [] data){
     for (int a: data){
